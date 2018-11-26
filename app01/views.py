@@ -119,12 +119,12 @@ def book_modifys(request):
     chuban_name = request.POST.get("chuban_name")
     if request.method == "GET":
         edit_id = models.Book.objects.get(id=edit_id)
-        print(edit_id.title)
+        print(edit_id.chuban_id)
         print(book_name)
         print(edit_id)
         # all_book = models.Book.objects.all()
         ret = models.Chuban.objects.all().order_by("id")
-        return render(request, "book_modifys.html", {"book_name": edit_id.title, "chuban_list":ret, "edit_id": edit_id})
+        return render(request, "book_modifys.html", {"book_name": edit_id.title, "chuban_list":ret, "edit_id": edit_id, "edit_id.chuban_id":edit_id.chuban_id})
     else:
         print(edit_pid, book_name, chuban_name)
         edit_book = models.Book.objects.get(id=edit_pid)

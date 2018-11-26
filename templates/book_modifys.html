@@ -10,21 +10,18 @@
 <form action="/book_add/" method="post">
     书籍名称：<input type="text" name="book_name" value="{{ book_name }}">
     出版社：
+    <select name="chuban_name" id="">
         {% for i in chuban_list %}
-            { %if i.id == edit_id.id %}
-                <option selecte value="{{ i.id }}">{{ i.name }}</option>
+{#            出版社的id和用户选中的id进行对比#}
+             <p>{{i.id}}----{{ edit_id.id }}----{{edit_id.chuban_id}}</p>
+            {%if i.id == edit_id.chuban_id %}
+                <option selected value="{{ i.id }}">{{ i.name }}</option>
             {% else %}
                 <option value="{{ i.id }}">{{ i.name }}</option>
             {% endif %}
         {% endfor %}
-
+    </option>
     <input type="submit" value="添加">
 </form>
 </body>
 </html>
-
-    出版社：<select name="chuban_name" id="">
-                {% for i in chuban_list %}
-                <option value="{{ i.id }}">{{ i.name }}</option>
-                {% endfor %}
-            </select>
