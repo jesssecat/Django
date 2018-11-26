@@ -76,7 +76,7 @@ def user_edit(request):
 #书籍展示相关
 def book_list(request):
     all_book = models.Book.objects.all()
-    return render(request, "book_list.html", {"all_book":all_book})
+    return render(request, "book_list2.html", {"all_book":all_book})
 
 #书籍添加
 def book_add(request):
