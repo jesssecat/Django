@@ -114,27 +114,21 @@ def book_del(request):
     return redirect("http://baidu.com")
 def book_modifys(request):
     edit_id = request.GET.get("id")
-    # edit_user = models.UserInfo.objects.get(id=edit_id)
-    print(edit_id)
-    all_book = models.Book.objects.all()
-    return render(request, "book_list.html", {"all_book": all_book})
-    # return redirect("/book_list/")
-    # if request.method == "POST":
-    # print(request.POST)
-    # edit_id = request.POST.get("id")
-    # print(edit_id)
-    # new_name = request.POST.get("user_name")
-    # print(new_name)
-    #     if edit_id:
-    #         # edit_user = models.UserInfo.objects.get(id=edit_id)
-    #         # edit_user.name = new_name
-    #         # edit_user.save()
-    #         # return redirect("/user_list/")
-    #     else:
-    #         return HttpResponse("用户名不存在!")
-    # edit_id = request.GET.get("id")
-    # if edit_id:
-    #     # edit_obj = models.UserInfo.objects.get(id=edit_id)
-    #     # return render(request, "user_edit.html", {"edit": edit_obj})
-    # else:
-    #     return HttpResponse("编辑的名称不存在")
+    edit_pid = request.POST.get("id")
+    book_name = request.POST.get("book_name")
+    chuban_name = request.POST.get("chuban_name")
+    if request.method == "GET":
+        edit_id = models.Book.objects.get(id=edit_id)
+        print(edit_id.title)
+        print(book_name)
+        print(edit_id)
+        # all_book = models.Book.objects.all()
+        ret = models.Chuban.objects.all().order_by("id")
+        return render(request, "book_modifys.html", {"book_name": edit_id.title, "chuban_list":ret, "edit_id": edit_id})
+    else:
+        print(edit_pid, book_name, chuban_name)
+        edit_book = models.Book.objects.get(id=edit_pid)
+        edit_book.title = book_name
+        edit_book.chuban_id = chuban_name
+        edit_book.save()
+        return redirect("/book_list/")
