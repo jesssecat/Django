@@ -87,12 +87,14 @@ DATABASES = {
         # 配置数据库的连接类型
         'ENGINE': 'django.db.backends.mysql',
         #连接数据库的地址
-        'HOST':'127.0.0.1',
+        'HOST': 
+            
+            '192.168.68.40',
         #连接端口
         'PORT': 3306,
         'NAME': "db1",
         'USER': 'root',
-        'PASSWORD': 'root'
+        'PASSWORD': 'Haoxiaoyu7!'
     }
 }
 
