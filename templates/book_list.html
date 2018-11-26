@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍列表</title>
+</head>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>出版社</th>
+                <th>属性</th>
+            </tr>
+        </thead>
+
+    <tbody border="1">
+    {% for i in all_book %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.title }}</td>
+            <td>{{ i.chuban.name }}</td>
+            <td><a href="/book_modifys/?id={{ i.id }}">修改</a> | <a href="/book_del/?id={{ i.id }}">删除</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+      </table>
+<a href="/book_add/">书籍添加</a>
+<a href="/chuban_add/">出版社添加</a>
+</body>
+</html>

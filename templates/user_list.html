@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+        <th>序号</th>
+        <th>id</th>
+        <th>用户名</th>
+        <th>属性</th>
+    </thead>
+
+{% for user in user_list %}
+    <tr border="1">
+        <td>{{ forloop.counter }}</td>
+{#        上面是序号，每次自增加一#}
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td><a href="/user_edit/?id={{ user.id }}">修改</a> | <a href="/user_del/?id={{ user.id }}">删除</a></td>
+    </tr>
+{% endfor %}
+</table>
+<a href="/user_add/">用户添加</a>
+</body>
+</html>

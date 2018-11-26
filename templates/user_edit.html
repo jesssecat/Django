@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户编辑页面</title>
+</head>
+<body>
+<form action="/user_edit/" method="post">
+    <input type="text" name="id" value="{{ edit.id }}" style="display: none">
+    修改用户名：<input type="text" name="user_name" value="{{ edit.name }}">
+    <input type="submit" value="提交">
+</form>
+<p>{{  error }}</p>
+</body>
+</html>
