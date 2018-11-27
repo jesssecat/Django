@@ -32,5 +32,11 @@ urlpatterns = [
     url(r'^tpl_a', views.tpl_a),
     url(r'^tpl_b', views.tpl_b),
     url(r'^upload', views.upload),
+    url(r'^json_data', views.json_test),
+    url(r'^url/[0-9]{2,4}/$', views.url),#http://127.0.0.1:8000/url/99/
+    url(r'^url/[0-9]{2,4}/[a-zA-Z]{2,4}/$', views.url),#http://127.0.0.1:8000/url/2222/bb/
+    url(r'^url/([0-9]{2,4})/([a-zA-Z]{2,4})/$', views.url),  # http://127.0.0.1:8000/url/2222/bb/
+    # arg1: 2222 可以给路由传值
+    # arg2: bb
 
 ]

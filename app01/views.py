@@ -163,3 +163,26 @@ def upload(request):
         #         # 写入本地文件
                 f.write(chunk)
         return HttpResponse("上传OK")
+
+#json 相关
+def json_test(request):
+    data = {"name": "jesse", "age":20}
+    data2 = [11, 22, 33, 44]
+    #备注：原生方法可以，但是django导入的方法不能
+    # import json
+    # data_str = json.dumps(data2)
+    # return HttpResponse(data_str)
+
+    from django.http import JsonResponse
+    return JsonResponse(data)
+    #{"name": "jesse", "age": 20}
+
+def url(request, arg1, arg2):
+    print("arg1:", arg1)
+    print("arg2:", arg2)
+    return HttpResponse("hello！")
+    #http://127.0.0.1:8000/url/2222/bb/
+    # arg1: 2222
+    # arg2: bb
+
+
