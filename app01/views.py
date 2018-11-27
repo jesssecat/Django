@@ -4,6 +4,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from app01 import models
 # Create your views here.
+from django.shortcuts import render, HttpResponse
 def login(request):
     return render(request,"login.html")
 def jesse(request):
@@ -132,3 +133,33 @@ def book_modifys(request):
         edit_book.chuban_id = chuban_name
         edit_book.save()
         return redirect("/book_list/")
+
+#测试向前台批量传值
+def tpl_a(request):
+    data = ["第{:0>3}台服务器".format(i) for i in range(1, 11)]
+    return render(request, "tpl_a.html", {"results": data})
+
+def tpl_b(request):
+    return render(request, "tpl_b.html")
+
+#文件上传
+def upload(request):
+    """
+       保存上传文件前，数据需要存放在某个位置。默认当上传文件小于2.5M时，django会将上传文件的全部内容读进内存。从内存读取一次，写磁盘一次。
+       但当上传文件很大时，django会把上传文件写到临时文件中，然后存放到系统临时文件夹中。
+       :param request:
+       :return:
+       """
+    if request.method == "POST":
+        print(request.FILES)
+        print(request.FILES["upload_file"].name)
+        # print(request.FILES.get("upload_file2").name)
+        # 从请求的FILES中获取上传文件的文件名，file为页面上type=files类型input的name属性值
+        filename = request.FILES["upload_file"].name
+        # # 在项目目录下新建一个文件
+        with open(filename, "wb") as f:
+        #     # 从上传的文件对象中一点一点读
+            for chunk in request.FILES["upload_file"].chunks():
+        #         # 写入本地文件
+                f.write(chunk)
+        return HttpResponse("上传OK")

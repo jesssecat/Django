@@ -33,5 +33,11 @@
 {% block page-main %}
 
 {% endblock %}
+
+<ul>
+    {% for result in results %}
+        <li>{{ result }}</li>
+    {% endfor %}
+</ul>
 </body>
 </html>

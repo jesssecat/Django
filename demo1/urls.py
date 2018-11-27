@@ -29,5 +29,8 @@ urlpatterns = [
     url(r'^chuban_add', views.chuban_add),
     url(r'^book_del', views.book_del),
     url(r'^book_modifys', views.book_modifys),
+    url(r'^tpl_a', views.tpl_a),
+    url(r'^tpl_b', views.tpl_b),
+    url(r'^upload', views.upload),
 
 ]
