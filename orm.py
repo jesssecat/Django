@@ -90,4 +90,20 @@ ret = chuban_obj.book_set.all()
 #根据出版社的ID查询出所出版的书籍
 #查询出版社id为1，书的名称
 ret = models.Chuban.objects.filter(id=1).values_list("book__title")
-print(ret)
+# print(ret)
+
+
+#聚合函数
+from django.db.models import Avg, Sum, Max, Min
+#求出平均数
+ret = models.Book.objects.all().aggregate(Avg("chuban_id"))
+# print(ret)
+
+ret = models.Book.objects.all().aggregate(Sum("chuban_id"))
+# print(ret)
+
+ret = models.Book.objects.all().aggregate(Max("chuban_id"))
+# print(ret)
+
+ret = models.Book.objects.all().aggregate(Min("chuban_id"))
+# print(ret)
