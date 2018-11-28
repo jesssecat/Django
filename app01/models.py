@@ -18,3 +18,5 @@ class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=64, null=False, unique=True)
     chuban = models.ForeignKey(to="Chuban")
+    def __str__(self):
+        return "<Book Object:{}>".format(self.title)
