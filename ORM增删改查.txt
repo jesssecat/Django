@@ -1,0 +1,49 @@
+1.命令测试：
+python console
+
+2.在项目下面建立测试脚本orm.py,然后导入dj环境进行测试
+
+可以现在models数据创建配置文件中，写入：
+    def __str__(self):
+        return "<Book Object:{}>".format(self.title)
+
+导入models
+from app01 import models
+
+查询所有：
+models.Book.objects.all()
+
+3.查看程序执行的Sql语句
+Django终端打印SQL语句
+    3.1在Django项目的settings.py文件中，在最后复制粘贴如下代码：
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}
+    3.2 在python console中重启一下
+    3.2 from app01 import models 导入模块
+    3.4 将dj中的语句放入进行查询
+        Python 3.7.1 (v3.7.1:260ec2c36a, Oct 20 2018, 14:05:16) [MSC v.1915 32 bit (Intel)] on win32
+        Django 1.11.11
+        from app01 import models
+        models.Book.objects.all().first()
+        <Book: 图书二>
+        (0.001) SELECT @@SQL_AUTO_IS_NULL; args=None
+        (0.001) SELECT `app01_book`.`id`, `app01_book`.`title`, `app01_book`.`chuban_id` FROM `app01_book` ORDER BY `app01_book`.`id` ASC LIMIT 1; args=()
+
+
+
+
