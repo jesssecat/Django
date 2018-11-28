@@ -13,10 +13,13 @@ class UserInfo(models.Model):
 class Chuban(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64,null=False, unique=True)
+    def __str__(self):
+        return "我是一个出版社：{}".format(self.name)
 #书籍
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=64, null=False, unique=True)
     chuban = models.ForeignKey(to="Chuban")
     def __str__(self):
-        return "<Book Object:{}>".format(self.title)
+        return self.title
+        # return "<Book Object:{}>".format(self.title)
