@@ -185,4 +185,73 @@ def url(request, arg1, arg2):
     # arg1: 2222
     # arg2: bb
 
+#书籍分页
+def book_page(request):
+    page_num = request.GET.get("page")
+    print(page_num, type(page_num))
+    # 判断用户输入的是否是数字，异常处理
+    try:
+        page_num = int(page_num)
+    except Exception as e:
+        page_num = 1
+    page_num = int(page_num)
+    print(page_num, type(page_num))
+    data_start = (page_num-1)*10
+    data_end = page_num*10
+    per_page = 10 #显示的数量
+    #页面上总共展示多少页码
+    max_page = 11
+    #页面上展示的页码从哪里开始
+    total_count = models.Book.objects.all().count()
+    total_page, m = divmod(total_count, per_page)
+    if m:
+        total_page += 1
+    if total_page < max_page:
+        max_page = total_page
+    half_max_page = max_page // 2
+    page_start = page_num - half_max_page
+    page_end = page_num + half_max_page
+    #如果当前页面减一半，比一还小
+    if page_start <= 1:
+        page_start = 1
+        page_end = max_page
+    #如果当前页面加一半比总页码数还大
+    if page_end >total_page:
+        page_end = total_page
+        page_start = total_page - max_page +1
+    if page_end > total_page:
+        page_end = total_page
+        page_start = total_page - max_page
+    # #总数量
+    # #一个需要多少页码
+    all_book = models.Book.objects.all()[data_start:data_end]
+    #print(total_page)
+    # #拼接html
+    html_str_list = []
+    html_str_list.append('<li><a href="/app01/book_page/?page=1">首页</a></li>')
+    if page_num <= 1:
+        html_str_list.append('<li style="display:none"><a href="/app01/book_page/?page={}">上一页</a></li>'.format(total_page))
+    else:
+        html_str_list.append('<li><a href="/app01/book_page/?page={}">上一页</a></li>'.format(page_num -1))
+    for i in range(page_start, page_end+1):
+        #根据样式判断当前页面
+        if i == page_num:
+            tmp = '<li><b><a href="/app01/book_page/?page={0}">{0}</a></b></li>'.format(i)
+        else:
+            tmp = '<li><a href="/app01/book_page/?page={0}">{0}</a></li>'.format(i)
+        html_str_list.append(tmp)
+    if page_num >= total_page:
+        html_str_list.append('<li style="display:none"><a href="/app01/book_page/?page={}">下一页</a></li>'.format(total_page))
+    else:
+        html_str_list.append('<li><a href="/app01/book_page/?page={}">下一页</a></li>'.format(page_num +1))
+    html_str_list.append('<li><a href="/app01/book_page/?page={}">尾页</a></li>'.format(total_page))
+    page_html = "".join(html_str_list)
 
+    #添加一些随机书
+    # for i in range(1000):
+    #     i = str(i)
+    #     i = "新书发布" + i
+    #     print(i)
+    #     models.Book.objects.create(title=i, chuban_id=1)
+    # 添加一些随机书结束
+    return render(request, "book_page.html", {"all_book": all_book, "page_html": page_html})

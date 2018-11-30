@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍列表</title>
+    <style>
+        li{
+            border: 1px solid red;
+            width: 50px;
+            display: inline;
+            float: left;
+        }
+        li a{
+            font-size: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+    <h1>分页测试</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>出版社</th>
+                <th>属性</th>
+            </tr>
+        </thead>
+
+    <tbody border="1">
+    {% for i in all_book %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.title }}</td>
+            <td>{{ i.chuban.name }}</td>
+            <td><a href="/book_modifys/?id={{ i.id }}">修改</a> | <a href="/book_del/?id={{ i.id }}">删除</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+      </table>
+    <ul>
+        {{ page_html|safe }}
+    </ul>
+
+
+</body>
+</html>

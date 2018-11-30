@@ -4,6 +4,7 @@ from app01 import views
 #这个页面是自己创建的，app01的子路由
 urlpatterns = [
     url(r'^login/', views.login),
+    url(r'^book_page/', views.book_page),
     url(r'^biaodan/', views.biaodan),
     url(r'^user_list', views.user_list),
     url(r'^user_add', views.user_add),
