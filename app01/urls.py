@@ -24,5 +24,11 @@ urlpatterns = [
     url(r'^url/([0-9]{2,4})/([a-zA-Z]{2,4})/$', views.url),  # http://127.0.0.1:8000/url/2222/bb/
     # arg1: 2222 可以给路由传值
     # arg2: bb
+    url(r'^ajax_add', views.ajax_add),
+    url(r'^ajax_demo1', views.ajax_demo1),
+    url(r'^json_demo', views.json_demo),
 
+    #ajax demo
+    url(r'^persons_demo/$', views.persons_demo),
+    url(r'^delete_demo/$', views.delete_demo),
 ]

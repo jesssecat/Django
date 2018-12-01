@@ -24,3 +24,9 @@ class Book(models.Model):
         return self.title
         # return "<Book Object:{}>".format(self.title)
 
+class Person(models.Model):
+    name = models.CharField(max_length=16)
+    age = models.IntegerField()
+    birthday = models.DateField(auto_now=True)
+    def __str__(self):
+        return self.name

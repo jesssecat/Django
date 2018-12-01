@@ -255,3 +255,66 @@ def book_page(request):
     #     models.Book.objects.create(title=i, chuban_id=1)
     # 添加一些随机书结束
     return render(request, "book_page.html", {"all_book": all_book, "page_html": page_html})
+
+#ajax
+def ajax_add(request):
+    i1 = int(request.GET.get("i1"))
+    i2 = int(request.GET.get("i2"))
+    ret = i1 + i2
+    print(ret)
+    #return HttpResponse(ret, safe=False)
+    return HttpResponse(ret)
+
+def ajax_demo1(request):
+    return render(request, "ajax_add.html")
+#ajax
+
+#json
+def json_demo(request):
+    # ret = models.Person.objects.all()
+
+    #json的第一种方法
+    # persons_list = []
+    # for i in ret:
+    #     persons_list.append({"name": i.name, "age": i.age})
+    # print(persons_list)
+    # import json
+    # str1 = json.dumps(persons_list)
+    # print(str1)
+    # return HttpResponse(str1)
+    #这样就可以把json传给前台
+
+#json的第二种方法
+    ret = models.Person.objects.all()
+    from django.core import serializers
+    s = serializers.serialize("json", ret)
+    print(s)
+    return HttpResponse(s)
+
+#json_demo
+def persons_demo(request):
+    ret = models.Person.objects.all()
+
+    # person_list = []
+    # for i in ret:
+    #     person_list.append({"name": i.name, "age": i.age})
+    # print(person_list)
+    # import json
+    # s = json.dumps(person_list)
+    # print(s)
+
+    # from django.core import serializers
+    # s = serializers.serialize("json", ret)
+    # print(s)
+    # return HttpResponse(s)
+
+    return render(request, "sweetalert_demo.html", {"persons": ret})
+
+
+def delete_demo(request):
+    import time
+    time.sleep(3)
+    del_id = request.POST.get("id")
+    models.Person.objects.filter(id=del_id).delete()
+    return HttpResponse("删除成功！")
+
