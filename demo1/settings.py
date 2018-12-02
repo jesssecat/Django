@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app01.apps.App01Config',
 ]
-
+#  中间件相关的设置
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -89,12 +89,12 @@ DATABASES = {
         #连接数据库的地址
         'HOST': 
             
-            '192.168.68.40',
+        '127.0.0.1',
         #连接端口
         'PORT': 3306,
         'NAME': "db1",
         'USER': 'root',
-        'PASSWORD': 'Haoxiaoyu7!'
+        'PASSWORD': 'root'
     }
 }
 
@@ -142,23 +142,24 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static")
 ]
-
+# 如果没有登录，默认跳转到那个URL
+LOGIN_URL = "/app01/login/"
 #数据库打印测试的sql语句
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django.db.backends': {
-            'handlers': ['console'],
-            'propagate': True,
-            'level':'DEBUG',
-        },
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console':{
+#             'level':'DEBUG',
+#             'class':'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level':'DEBUG',
+#         },
+#     }
+# }
 #数据库打印测试的sql语句

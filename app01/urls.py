@@ -31,4 +31,10 @@ urlpatterns = [
     #ajax demo
     url(r'^persons_demo/$', views.persons_demo),
     url(r'^delete_demo/$', views.delete_demo),
+
+    #判断是否登录，没有登录则跳转登录页面
+    url(r'^login_l/$', views.login_1),
+    url(r'^login_y/$', views.login_y),
+    url(r'^logout/$', views.logout),
+
 ]

@@ -318,3 +318,53 @@ def delete_demo(request):
     models.Person.objects.filter(id=del_id).delete()
     return HttpResponse("删除成功！")
 
+#判断是否登录，登录则登录成功，否则登录失败
+from django.contrib import auth   #使用的自带的auth模块
+from django.contrib.auth.decorators import login_required
+
+from app01 import models
+from functools import wraps
+def check_login(f):
+    """
+    login_l 方法的session判断是否登录
+    request.session["is_login"] = "1"
+    如果不等于1，就返回登录页面
+    """
+    @wraps(f)
+    def inner(request, *args, **kwargs):
+        if request.session.get("is_login") == "1":
+            return f(request, *args, **kwargs)
+        else:
+            return redirect("/app01/login_l/")
+    return inner
+def login_1(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = models.UserInfo.objects.filter(name=username, password=password)  # [User Obj, ]
+        if user:
+            # 登陆成功
+            request.session["is_login"] = "1"
+            request.session["user_id"] = user[0].id
+            # 1. 生成特殊的字符串
+            # 2. 特殊字符串当成key,在数据库的session表中对应一个session value
+            # 3. 在响应中向浏览器写了一个Cookie Cookie的值就是 特殊的字符串
+
+            return redirect("/app01/login_y/")
+
+    return render(request, "login_l.html")
+#开始使用装饰器
+@check_login
+def login_y(request):
+    user_id = request.session.get("user_id")
+    #根据id去数据库中查找用户
+    user_obj = models.UserInfo.objects.filter(id=user_id)
+    if user_obj:
+        return render(request, "login_y.html", {"user": user_obj[0]})
+    else:
+        return render(request, "login_y.html", {"user": "匿名用户"})
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/app01/login_l/")
